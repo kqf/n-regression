@@ -1,6 +1,6 @@
-# Regression on non-linear, data
+# Regression on non-linear data
 
-This is the solution of regression problem on nonlinear dataset that was measured in different time intervals.
+This is the solution of regression problem on non-linear dataset that was measured in different time intervals.
 
 
 
@@ -31,11 +31,16 @@ Here is a list of steps that I followed to get the results
 3. Try linear model and compare to RandomForest
 4. Tune parameters (almost done)
 5. Use the best parameters as to get the best solution (didn't do this yet)
-6. Further improvemets?
-
+6. Further improvemets:
+    - Simpler models
+    - L1 regularization to select features
+    - Tweak the most/least informative feature to see the impact on the MSE
+    - Does this really depend on time?
 
 ## Results
 The scores on the best parameters (that I've found so far)
 ```
+Random Forest MAE 241.093120355
+Random Forest MSE 141806.236619
 
 ```

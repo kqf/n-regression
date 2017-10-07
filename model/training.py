@@ -37,16 +37,19 @@ class Trainer(object):
     @classmethod
     def _check(klass, estimator, name, X, y, X_test, y_test):
         predictions = estimator.predict(X_test)
-        print '{0} MSE {1}'.format(name, mean_absolute_error(predictions, y_test))
+        print '{0} MAE {1}'.format(name, mean_absolute_error(predictions, y_test))
         print '{0} MSE {1}'.format(name, mean_squared_error(predictions, y_test))
 
-        # plt.figure()
+        plt.figure()
         # plt.subplot(1, 2, 1)
         plt.grid(True)
         plt.scatter(y, estimator.predict(X), alpha = 0.5, color = 'red', label = 'training data')
         plt.scatter(y_test, predictions, alpha = 0.5, color = 'blue', label = 'test data')
         plt.legend()
         plt.title('Input/Output correlation for {0}'.format(name))
+        plt.axes().set_aspect('equal')
+        plt.xlabel('true values')
+        plt.ylabel('predicted values')
         plt.show()
 
 
@@ -57,6 +60,10 @@ class Trainer(object):
         estimator = klass.pipeline(regressor)
         grid = GridSearchCV(estimator, parameters, cv = 3)
         grid.fit(X, y)
+
+
+        print 'Best parameters', grid.best_params_
+
 
         # Now look at the best estimator
         klass._check(grid.best_estimator_, name, X, y, X_test, y_test)

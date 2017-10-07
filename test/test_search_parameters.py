@@ -13,11 +13,11 @@ class TestSearchParameters(unittest.TestCase):
         from sklearn.ensemble import RandomForestRegressor
 
         grid_params = {
-            'randomforestregressor__n_estimators': [5, 10, 20, 50, 100],
-            'randomforestregressor__criterion': ['mse', 'mae'],
-            'randomforestregressor__min_samples_leaf': [0.001, 0.1, 0.2, 0.4],
+            'randomforestregressor__n_estimators': [20, 50, 100, 150, 200],
+            'randomforestregressor__criterion': ['mse'],
+            'randomforestregressor__min_samples_leaf': [2, 4, 8, 16, 32],
         }
 
-        ttr.search('Random forest', RandomForestRegressor(n_jobs = -1), grid_params)
+        ttr.search('Random Forest', RandomForestRegressor(n_jobs = -1), grid_params)
 
 

@@ -30,10 +30,13 @@ class TestDataHandler(unittest.TestCase):
         plt.subplot(1, 2, 1)
         plt.hist(y)
         plt.title('train data distribution')
+        plt.xlabel('target variable')
+        plt.ylabel('counts')
 
         plt.subplot(1, 2, 2)
         plt.hist(y_test)
         plt.title('test data distribution') 
+        plt.xlabel('target variable')
         # plt.savefig('target_distribution_in_input_and_output.png')
         plt.show()
         print X.info()

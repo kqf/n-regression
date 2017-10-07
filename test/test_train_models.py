@@ -10,11 +10,11 @@ class TestDifferentModles(unittest.TestCase):
     # @unittest.skip('')
     def test_linear(self):
         from sklearn.linear_model import SGDRegressor
-        ttr.check_model('SGD', SGDRegressor())
+        ttr.check_model('SGD', SGDRegressor(max_iter=5 ))
 
 
     def test_random_forest(self):
         from sklearn.ensemble import RandomForestRegressor
-        ttr.check_model('Random forest', RandomForestRegressor())
+        ttr.check_model('Random Forest', RandomForestRegressor())
 
 
