@@ -10,7 +10,12 @@ from matplotlib import pyplot as plt
 import seaborn
 
 
-from sklearn.model_selection import GridSearchCV
+# Avoid sklearn version mismatch
+try:
+    from sklearn.model_selection import GridSearchCV
+except ImportError:
+    from sklearn.grid_search import GridSearchCV
+
 
 class Trainer(object):
     def __init__(self):
