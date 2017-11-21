@@ -34,3 +34,11 @@ class TestDifferentModles(unittest.TestCase):
         #       rbf, polynomial
         ttr.check_model('SVR', SVR(kernel='poly', degree=4))
 
+
+    def test_lars(self):
+        from sklearn.linear_model import LassoLars 
+        ttr.check_model('LassoLars', LassoLars())
+
+    
+
+

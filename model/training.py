@@ -42,13 +42,22 @@ class Trainer(object):
     @classmethod
     def _check(klass, estimator, name, X, y, X_test, y_test):
         predictions = estimator.predict(X_test)
-        print '{0} MAE {1}'.format(name, mean_absolute_error(predictions, y_test))
-        print '{0} MSE {1}'.format(name, mean_squared_error(predictions, y_test))
+        X = estimator.predict(X)
+        print
+        print '============== {0} ================='.format(name)
+        print 'On train set MAE {0}'.format(mean_absolute_error(X, y))
+        print 'On train set MSE {0}'.format(mean_squared_error(X, y))
+
+        print 'On test set MAE {0}'.format(mean_absolute_error(predictions, y_test))
+        print 'On test set MSE {0}'.format(mean_squared_error(predictions, y_test))
+        print '======================================'
+
+   
 
         plt.figure()
         # plt.subplot(1, 2, 1)
         plt.grid(True)
-        plt.scatter(y, estimator.predict(X), alpha = 0.5, color = 'red', label = 'training data')
+        plt.scatter(y, X, alpha = 0.5, color = 'red', label = 'training data')
         plt.scatter(y_test, predictions, alpha = 0.5, color = 'blue', label = 'test data')
         plt.legend()
         plt.title('Input/Output correlation for {0}'.format(name))
