@@ -36,7 +36,7 @@ class Trainer(object):
 
         estimator = klass.pipeline(regressor)
         estimator.fit(X, y)
-        klass._check(estimator, name, X, y, X_test, y_test)
+        return klass._check(estimator, name, X, y, X_test, y_test)
 
 
     @classmethod
@@ -65,7 +65,8 @@ class Trainer(object):
         plt.xlabel('true values')
         plt.ylabel('predicted values')
         plt.show()
-
+        print 'On train set MSE {0}'.format(mean_squared_error(X, y))
+        return mean_absolute_error(predictions, y_test)
 
     @classmethod   
     def search(klass, name, regressor, parameters):
