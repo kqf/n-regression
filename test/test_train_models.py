@@ -1,5 +1,5 @@
 import unittest
-from model.training import Trainer as ttr 
+from model.training import Trainer as ttr
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import PolynomialFeatures, Normalizer
 from sklearn.pipeline import make_pipeline, make_union

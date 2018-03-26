@@ -1,10 +1,10 @@
 import unittest
-from model.training import Trainer as ttr 
-from sklearn.svm import SVR 
+from model.training import Trainer as ttr
+from sklearn.svm import SVR
 from sklearn.linear_model import Lasso
-from sklearn.linear_model import Ridge 
-from sklearn.linear_model import LassoLars 
-from sklearn.linear_model import ElasticNet 
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import LassoLars
+from sklearn.linear_model import ElasticNet
 from sklearn.linear_model import SGDRegressor
 
 

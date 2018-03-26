@@ -1,5 +1,5 @@
 import unittest
-from model.training import Trainer as ttr 
+from model.training import Trainer as ttr
 
 
 class TestEnsembleModels(unittest.TestCase):

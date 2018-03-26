@@ -1,5 +1,5 @@
 import unittest
-from model.training import Trainer as ttr 
+from model.training import Trainer as ttr
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import PolynomialFeatures
 
@@ -22,7 +22,7 @@ class TestDifferentModles(unittest.TestCase):
 
 
     def test_ridge(self):
-        from sklearn.linear_model import Ridge 
+        from sklearn.linear_model import Ridge
         make_pipeline([
             PolynomialFeatures(3),
             ttr.check_model('Ridge', Ridge(alpha=0.1))
@@ -30,14 +30,14 @@ class TestDifferentModles(unittest.TestCase):
 
     @unittest.skip('')
     def test_elastic(self):
-        from sklearn.linear_model import ElasticNet 
+        from sklearn.linear_model import ElasticNet
         ttr.check_model('ElasticNet', ElasticNet(alpha=1))
 
 
 
     @unittest.skip('')
     def test_svr(self):
-        from sklearn.svm import SVR 
+        from sklearn.svm import SVR
         # TODO: Try to search in differnt kernel functions
         #       rbf, polynomial
         ttr.check_model('SVR', SVR(kernel='poly', degree=4))
@@ -45,9 +45,8 @@ class TestDifferentModles(unittest.TestCase):
 
     @unittest.skip('')
     def test_lars(self):
-        from sklearn.linear_model import LassoLars 
+        from sklearn.linear_model import LassoLars
         ttr.check_model('LassoLars', LassoLars())
 
-    
 
 
