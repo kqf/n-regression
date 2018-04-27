@@ -1,5 +1,9 @@
 import unittest
 from model.training import Trainer as ttr
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import AdaBoostRegressor
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.ensemble import BaggingRegressor
 
 
 class TestEnsembleModels(unittest.TestCase):
@@ -8,14 +12,15 @@ class TestEnsembleModels(unittest.TestCase):
     #
     @unittest.skip('')
     def test_random_forest(self):
-        from sklearn.ensemble import RandomForestRegressor
         ttr.check_model('Random Forest', RandomForestRegressor())
 
+    @unittest.skip('')
     def test_ada(self):
-        from sklearn.ensemble import AdaBoostRegressor
         ttr.check_model('Ada boost', AdaBoostRegressor())
 
+    @unittest.skip('')
     def test_gradient(self):
-        from sklearn.ensemble import GradientBoostingRegressor
         ttr.check_model('Gradient boost', GradientBoostingRegressor())
 
+    def test_bagging(self):
+        ttr.check_model('Gradient boost', BaggingRegressor())
