@@ -10,7 +10,6 @@ class TestEnsembleModels(unittest.TestCase):
 
     # TODO: Add separate tests for ensemble regressors
     #
-    @unittest.skip('')
     def test_random_forest(self):
         ttr.check_model('Random Forest', RandomForestRegressor())
 
@@ -22,5 +21,11 @@ class TestEnsembleModels(unittest.TestCase):
     def test_gradient(self):
         ttr.check_model('Gradient boost', GradientBoostingRegressor())
 
+    # @unittest.skip('')
     def test_bagging(self):
-        ttr.check_model('Gradient boost', BaggingRegressor())
+        ttr.check_model('Bagging', BaggingRegressor())
+
+    @unittest.skip('')
+    def test_lgbm(self):
+        from lightgbm import LGBMRegressor
+        ttr.check_model('LGBM', LGBMRegressor())
