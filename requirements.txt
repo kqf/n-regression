@@ -3,5 +3,4 @@ sklearn
 numpy
 matplotlib
 pandas
-seaborn
-lightgbm
+pytest

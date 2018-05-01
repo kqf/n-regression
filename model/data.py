@@ -3,10 +3,7 @@ import pandas as pd
 # Use object to be able to override it later
 
 
-class DataHandler(object):
-
-    def __init__(self):
-        super(DataHandler, self).__init__()
+class DataHandler():
 
     @classmethod
     def _load_files(klass, ifile='data/inputs.csv', tfile='data/targets.csv'):
@@ -39,8 +36,8 @@ class DataHandler(object):
         test = data.iloc[-testsize:, :]
 
         assert train.timeStamp.max() < test.timeStamp.min(), \
-            "Problems with your data," \
-            "make sure that you are trying to predict future"
+            'Problems with your data,' \
+            'make sure that you are trying to predict future'
 
         # Drop the datetime
         train = train.drop(['timeStamp'], axis=1)
