@@ -43,5 +43,9 @@ class DataHandler():
         train = train.drop(['timeStamp'], axis=1)
         test = test.drop(['timeStamp'], axis=1)
 
-        return (train.drop(['target'], axis=1), train.target.values),\
-               (test.drop(['target'], axis=1), test.target.values)
+        return (
+            train.drop(['target'], axis=1),
+            test.drop(['target'], axis=1),
+            train.target.values,
+            test.target.values,
+        )

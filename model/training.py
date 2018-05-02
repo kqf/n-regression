@@ -17,31 +17,28 @@ class Trainer():
 
     @classmethod
     def check_model(klass, name, regressor):
-        (X, y), (X_test, y_test) = DataHandler.load_train_test()
+        X_tr, X_te, y_tr, y_te = DataHandler.load_train_test()
+        regressor.fit(X_tr, y_tr)
 
-        regressor.fit(X, y)
-        return klass._check(regressor, name, X, y, X_test, y_test)
-
-    @classmethod
-    def _check(klass, estimator, name, X, y, X_test, y_test):
-        predictions = estimator.predict(X_test)
-        X = estimator.predict(X)
+        y_te_pred = regressor.predict(X_te)
+        y_tr_pred = regressor.predict(X_tr)
         print()
         print('============== {0} ================='.format(name))
-        print('On train set MAE {0}'.format(mean_absolute_error(X, y)))
-        print('On train set MSE {0}'.format(mean_squared_error(X, y)))
-
+        print('On train set MAE {0}'.format(
+            mean_absolute_error(y_tr_pred, y_tr)))
+        print('On train set MSE {0}'.format(
+            mean_squared_error(y_tr_pred, y_tr)))
         print('On test set MAE {0}'.format(
-            mean_absolute_error(predictions, y_test)))
+            mean_absolute_error(y_te_pred, y_te)))
         print('On test set MSE {0}'.format(
-            mean_squared_error(predictions, y_test)))
+            mean_squared_error(y_te_pred, y_te)))
         print('======================================')
 
         plt.figure()
-        # plt.subplot(1, 2, 1)
         plt.grid(True)
-        plt.scatter(y, X, alpha=0.5, color='red', label='training data')
-        plt.scatter(y_test, predictions, alpha=0.5,
+        plt.scatter(y_tr, y_tr_pred, alpha=0.5,
+                    color='red', label='training data')
+        plt.scatter(y_te, y_te_pred, alpha=0.5,
                     color='blue', label='test data')
         plt.legend()
         plt.title('Input/Output correlation for {0}'.format(name))
@@ -49,19 +46,20 @@ class Trainer():
         plt.xlabel('true values')
         plt.ylabel('predicted values')
         plt.show()
-        print('On train set MSE {0}'.format(mean_squared_error(X, y)))
-        return mean_absolute_error(predictions, y_test)
+        return mean_absolute_error(y_te_pred, y_te)
 
     @classmethod
     def search(klass, name, regressor, parameters):
         print('Tuning the parameters.\nAll available:')
         for k in regressor.get_params().keys():
             print(k)
-        (X, y), (X_test, y_test) = DataHandler.load_train_test()
-
-        grid = GridSearchCV(regressor, parameters, cv=3, verbose=1, n_jobs=-1)
-        grid.fit(X, y)
+        X_tr, X_te, y_tr, y_te = DataHandler.load_train_test()
+        # X_tr, X_te, y_tr, y_te =
+        grid = GridSearchCV(regressor, parameters, cv=3,
+                            verbose=1, n_jobs=-1)
+        grid.fit(X_tr, y_tr)
         print('Best parameters', grid.best_params_)
-
-        # Now look at the best estimator
-        klass._check(grid.best_estimator_, name, X, y, X_test, y_test)
+        print('Best estimator Train RMS',
+              mean_absolute_error(grid.best_estimator_.predict(X_tr), y_tr))
+        print('Best estimator Test  RMS',
+              mean_absolute_error(grid.best_estimator_.predict(X_te), y_te))

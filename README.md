@@ -1,4 +1,4 @@
-# Regression on non-linear data
+# Regression on non-linear data [![Build Status](https://travis-ci.com/kqf/time-series-regression.svg?branch=master)](https://travis-ci.com/kqf/time-series-regression)
 
 This is the solution of regression problem on non-linear dataset that was measured in different time intervals.
 
