@@ -6,9 +6,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
 
 
-@pytest.mark.skip('')
 @pytest.mark.onlylocal
-def test():
+def test(data):
     kernels = [
         'poly',
         'sigmoid',
@@ -20,11 +19,11 @@ def test():
             StandardScaler(),
             SVR(kernel=kernel, C=25),
         )
-        ttr.check_model('SVR ' + kernel, svr)
+        ttr.check_model(data, 'SVR ' + kernel, svr)
 
 
 @pytest.mark.onlylocal
-def test_scan():
+def test_scan(data):
     parameters = {
         'svr__kernel': ['rbf'],
         # 'kernel': ['rbf', 'poly', 'sigmoid'],
@@ -36,4 +35,4 @@ def test_scan():
         StandardScaler(),
         SVR(),
     )
-    ttr.search('SVR ', svr, parameters)
+    ttr.search(data, 'SVR ', svr, parameters)

@@ -8,7 +8,7 @@ from model.training import Trainer as ttr
 #
 
 @pytest.mark.onlylocal
-def test_search_random_forest():
+def test_search_random_forest(data):
 
     grid_params = {
         'randomforestregressor__n_estimators': [20, 50, 100, 150, 200],
@@ -16,5 +16,5 @@ def test_search_random_forest():
         'randomforestregressor__min_samples_leaf': [2, 4, 8, 16, 32],
     }
 
-    ttr.search('Random Forest', RandomForestRegressor(
+    ttr.search(data, 'Random Forest', RandomForestRegressor(
         n_jobs=-1), grid_params)

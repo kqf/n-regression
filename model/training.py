@@ -1,5 +1,3 @@
-from model.data import DataHandler
-
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
@@ -16,8 +14,8 @@ class Trainer():
     #
 
     @classmethod
-    def check_model(klass, name, regressor):
-        X_tr, X_te, y_tr, y_te = DataHandler.load_train_test()
+    def check_model(klass, data, name, regressor):
+        X_tr, X_te, y_tr, y_te = data
         regressor.fit(X_tr, y_tr)
 
         y_te_pred = regressor.predict(X_te)
@@ -49,11 +47,11 @@ class Trainer():
         return mean_absolute_error(y_te_pred, y_te)
 
     @classmethod
-    def search(klass, name, regressor, parameters):
+    def search(klass, data, name, regressor, parameters):
         print('Tuning the parameters.\nAll available:')
         for k in regressor.get_params().keys():
             print(k)
-        X_tr, X_te, y_tr, y_te = DataHandler.load_train_test()
+        X_tr, X_te, y_tr, y_te = data
         # X_tr, X_te, y_tr, y_te =
         grid = GridSearchCV(regressor, parameters, cv=3,
                             verbose=1, n_jobs=-1)

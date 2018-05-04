@@ -1,3 +1,4 @@
+from model.data import DataHandler
 from sklearn.datasets import make_regression
 from datetime import datetime
 from datetime import timedelta
@@ -26,9 +27,8 @@ def make_data():
 
 
 @pytest.fixture()
-def datafiles(tmpdir_factory):
-    inputsf = 'data/inputs.csv'
-    targetsf = 'data/targets.csv'
+def datafiles():
+    inputsf, targetsf = 'data/inputs.csv', 'data/targets.csv'
     if os.path.isfile(inputsf) and os.path.isfile(targetsf):
         return inputsf, targetsf
 
@@ -37,3 +37,8 @@ def datafiles(tmpdir_factory):
     inputs.to_csv(inputsf, index=False)
     targets.to_csv(targetsf, index=False)
     return inputsf, targetsf
+
+
+@pytest.fixture()
+def data(datafiles):
+    return DataHandler.load_train_test(*datafiles)

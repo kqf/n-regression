@@ -1,6 +1,13 @@
 import pandas as pd
 
-# Use object to be able to override it later
+
+def tofloat(df):
+    for colname in df.columns:
+        try:
+            df[colname] = df[colname].apply(float)
+        except TypeError:
+            pass
+    return df
 
 
 class DataHandler():
@@ -31,9 +38,10 @@ class DataHandler():
     def load_train_test(klass, ifile='data/inputs.csv',
                         tfile='data/targets.csv', fraction=0.25):
         data = klass.load(ifile, tfile)
-        testsize = int(data.shape[0] * fraction)
-        train = data.iloc[:-testsize, :]
-        test = data.iloc[-testsize:, :]
+        fdata = tofloat(data)
+        testsize = int(fdata.shape[0] * fraction)
+        train = fdata.iloc[:-testsize, :]
+        test = fdata.iloc[-testsize:, :]
 
         assert train.timeStamp.max() < test.timeStamp.min(), \
             'Problems with your data,' \

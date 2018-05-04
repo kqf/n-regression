@@ -1,8 +1,4 @@
-.PHONY: eval search
+.PHONY: all 
 
-eval: model/*.py __main__.py
+all: model/*.py __main__.py
 	python .
-
-
-search: test/test_search_parameters.py
-	$(PYTHON) -m unittest test.test_search_parameters

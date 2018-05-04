@@ -10,20 +10,20 @@ from sklearn.ensemble import BaggingRegressor
 
 
 @pytest.mark.skip('These models are too heavy')
-def test_random_forest(self):
-    ttr.check_model('Random Forest', RandomForestRegressor())
+def test_random_forest(data):
+    ttr.check_model(data, 'Random Forest', RandomForestRegressor())
 
 
 @pytest.mark.skip('These models are too heavy')
-def test_ada(self):
-    ttr.check_model('Ada boost', AdaBoostRegressor())
+def test_ada(data):
+    ttr.check_model(data, 'Ada boost', AdaBoostRegressor())
 
 
 @pytest.mark.skip('These models are too heavy')
-def test_gradient(self):
-    ttr.check_model('Gradient boost', GradientBoostingRegressor())
+def test_gradient(data):
+    ttr.check_model(data, 'Gradient boost', GradientBoostingRegressor())
 
 
 @pytest.mark.skip('These models are too heavy')
-def test_bagging(self):
-    ttr.check_model('Bagging', BaggingRegressor())
+def test_bagging(data):
+    ttr.check_model(data, 'Bagging', BaggingRegressor())
