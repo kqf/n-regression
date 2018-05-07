@@ -18,9 +18,9 @@ class DataHandler():
 
     @classmethod
     def _time_data(klass, data, target):
-        data['timeStamp'] = data.timeStamp.apply(pd.to_datetime)
-        data['month'] = data.timeStamp.apply(lambda x: x.month)
-        data['hour'] = data.timeStamp.apply(lambda x: x.hour)
+        data['timeStamp'] = data['timeStamp'].apply(pd.to_datetime)
+        data['month'] = data['timeStamp'].apply(lambda x: x.month)
+        data['hour'] = data['timeStamp'].apply(lambda x: x.hour)
         # TODO: add woringdays and holidays?
         data['target'] = target
         return data
@@ -46,10 +46,6 @@ class DataHandler():
         assert train.timeStamp.max() < test.timeStamp.min(), \
             'Problems with your data,' \
             'make sure that you are trying to predict future'
-
-        # Drop the datetime
-        train = train.drop(['timeStamp'], axis=1)
-        test = test.drop(['timeStamp'], axis=1)
 
         return (
             train.drop(['target'], axis=1),

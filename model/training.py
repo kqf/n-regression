@@ -1,11 +1,21 @@
 from matplotlib import pyplot as plt
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.pipeline import make_pipeline
 
-# Avoid sklearn version mismatch
-try:
-    from sklearn.model_selection import GridSearchCV
-except ImportError:
-    from sklearn.grid_search import GridSearchCV
+
+class ColumnRemover(BaseEstimator, TransformerMixin):
+    def __init__(self, columns):
+        self.columns = columns
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        for col in self.columns:
+            X = X.drop(col, axis=1)
+        return X
 
 
 class Trainer():
@@ -16,10 +26,11 @@ class Trainer():
     @classmethod
     def check_model(klass, data, name, regressor):
         X_tr, X_te, y_tr, y_te = data
-        regressor.fit(X_tr, y_tr)
 
-        y_te_pred = regressor.predict(X_te)
-        y_tr_pred = regressor.predict(X_tr)
+        model = make_pipeline(ColumnRemover(('timeStamp',)), regressor)
+        model.fit(X_tr, y_tr)
+        y_te_pred = model.predict(X_te)
+        y_tr_pred = model.predict(X_tr)
         print()
         print('============== {0} ================='.format(name))
         print('On train set MAE {0}'.format(
@@ -49,11 +60,11 @@ class Trainer():
     @classmethod
     def search(klass, data, name, regressor, parameters):
         print('Tuning the parameters.\nAll available:')
-        for k in regressor.get_params().keys():
+        model = make_pipeline(ColumnRemover(('timeStamp',)), regressor)
+        for k in model.get_params().keys():
             print(k)
         X_tr, X_te, y_tr, y_te = data
-        # X_tr, X_te, y_tr, y_te =
-        grid = GridSearchCV(regressor, parameters, cv=3,
+        grid = GridSearchCV(model, parameters, cv=3,
                             verbose=1, n_jobs=-1)
         grid.fit(X_tr, y_tr)
         print('Best parameters', grid.best_params_)

@@ -17,7 +17,7 @@ def test(data):
         svr = make_pipeline(
             # PolynomialFeatures(),
             StandardScaler(),
-            SVR(kernel=kernel, C=25),
+            SVR(kernel=kernel, C=25, gamma='scale'),
         )
         ttr.check_model(data, 'SVR ' + kernel, svr)
 
