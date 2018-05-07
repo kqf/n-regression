@@ -58,9 +58,8 @@ class Trainer():
         return mean_absolute_error(y_te_pred, y_te)
 
     @classmethod
-    def search(klass, data, name, regressor, parameters):
+    def search(klass, data, name, model, parameters):
         print('Tuning the parameters.\nAll available:')
-        model = make_pipeline(ColumnRemover(('timeStamp',)), regressor)
         for k in model.get_params().keys():
             print(k)
         X_tr, X_te, y_tr, y_te = data

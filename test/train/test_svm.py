@@ -1,6 +1,7 @@
 import pytest
 
 from model.training import Trainer as ttr
+from model.training import ColumnRemover
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVR
@@ -32,6 +33,7 @@ def test_scan(data):
     }
 
     svr = make_pipeline(
+        ColumnRemover(('timeStamp',)),
         StandardScaler(),
         SVR(),
     )
