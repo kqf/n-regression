@@ -9,20 +9,15 @@ from sklearn.svm import SVR
 
 @pytest.mark.onlylocal
 def test(data):
-    kernels = [
-        'poly',
-        'sigmoid',
-        'rbf',
-    ]
-    for kernel in kernels:
-        svr = make_pipeline(
-            # PolynomialFeatures(),
-            StandardScaler(),
-            SVR(kernel=kernel, C=25, gamma='scale'),
-        )
-        ttr.check_model(data, 'SVR ' + kernel, svr)
+    svr = make_pipeline(
+        # PolynomialFeatures(),
+        StandardScaler(),
+        SVR(kernel='rbf', C=25, gamma='scale'),
+    )
+    ttr.check_model(data, 'SVR rbf', svr)
 
 
+@pytest.mark.skip("")
 @pytest.mark.onlylocal
 def test_scan(data):
     parameters = {

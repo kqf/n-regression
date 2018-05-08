@@ -3,6 +3,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import make_pipeline
+import matplotlib.dates as md
 
 
 class ColumnRemover(BaseEstimator, TransformerMixin):
@@ -54,6 +55,19 @@ class Trainer():
         plt.axes().set_aspect('equal', 'datalim')
         plt.xlabel('true values')
         plt.ylabel('predicted values')
+        plt.show()
+
+        plt.figure(figsize=(24, 6))
+        plt.grid(True)
+        axis = plt.plot(X_tr['timeStamp'], y_tr, color="blue", label="data")
+        plt.plot(X_te['timeStamp'], y_te, color="blue")
+        plt.plot(X_te['timeStamp'], y_te_pred, color="orange", label="test")
+        plt.plot(X_tr['timeStamp'], y_tr_pred, color="green", label="train")
+        axis = plt.gca()
+        axis.xaxis.set_major_formatter(md.DateFormatter('%Y-%m-%d'))
+        plt.xticks(rotation=30)
+        plt.legend()
+
         plt.show()
         return mean_absolute_error(y_te_pred, y_te)
 
