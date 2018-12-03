@@ -1,8 +1,8 @@
 # Regression on non-linear data [![Build Status](https://travis-ci.com/kqf/time-series-regression.svg?branch=master)](https://travis-ci.com/kqf/time-series-regression)
 
-This is the solution of regression problem on non-linear dataset that was measured in different time intervals.
+This is a toy-regression problem on non-linear dataset that was measured in different time intervals. The actual dataset is not public and therefore test fixtures create fake data files with the same schema, so the code can be tested. The model parameters are minimal so tests can run faster.
 
-## The solution
+## Run the solution
 The most optimal solution relies on SVM.
 
 To run the solution do
@@ -16,19 +16,3 @@ To run the solution do
 # best parameters I was able to find
 make 
 ```
-
-
-## Steps
-
-1. Explore the data
-2. Read/process the data
-3. Model complexity (try simple models first):
-	- Linear models (Linear, L1, L2, ElasticNet). The problem is nonlinear. Polynomial features (slow)
-	- Try generalized linear models SVR for different kernels. Tune parameters.
-	- Look if we can benefit from from complex models like Random Forests
-	- Try to improve the result with neural networks
-4. Tune parameters (almost done)
-6. Further improvemets:
-
-## Results
-TODO: Add finetuned results

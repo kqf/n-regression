@@ -28,7 +28,7 @@ def make_data():
 
 @pytest.fixture()
 def datafiles():
-    inputsf, targetsf = 'data/inputs.csv', 'data/targets.csv'
+    inputsf, targetsf = "data/inputs.csv", "data/targets.csv"
     if os.path.isfile(inputsf) and os.path.isfile(targetsf):
         return inputsf, targetsf
 

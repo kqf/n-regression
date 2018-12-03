@@ -12,24 +12,24 @@ def test(data):
     svr = make_pipeline(
         # PolynomialFeatures(),
         StandardScaler(),
-        SVR(kernel='rbf', C=25, gamma='scale'),
+        SVR(kernel="rbf", C=25, gamma="scale"),
     )
-    ttr.check_model(data, 'SVR rbf', svr)
+    ttr.check_model(data, "SVR rbf", svr)
 
 
 @pytest.mark.skip("")
 @pytest.mark.onlylocal
 def test_scan(data):
     parameters = {
-        'svr__kernel': ['rbf'],
-        # 'kernel': ['rbf', 'poly', 'sigmoid'],
-        'svr__C': [1, 10, 25, 30],
-        'svr__gamma': ['auto', 2. / 16, 4. / 16, 1.]
+        "svr__kernel": ["rbf"],
+        # "kernel": ["rbf", "poly", "sigmoid"],
+        "svr__C": [1, 10, 25, 30],
+        "svr__gamma": ["auto", 2. / 16, 4. / 16, 1.]
     }
 
     svr = make_pipeline(
-        ColumnRemover(('timeStamp',)),
+        ColumnRemover(("timeStamp",)),
         StandardScaler(),
         SVR(),
     )
-    ttr.search(data, 'SVR ', svr, parameters)
+    ttr.search(data, "SVR ", svr, parameters)

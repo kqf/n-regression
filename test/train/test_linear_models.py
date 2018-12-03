@@ -9,9 +9,9 @@ from model.training import Trainer as ttr
 
 @pytest.mark.onlylocal
 def test_linear_model(data):
-    ttr.check_model(data, 'SGD',
+    ttr.check_model(data, "SGD",
                     make_pipeline(
                         # StandardScaler(),
                         PolynomialFeatures(),
-                        SGDRegressor()
+                        SGDRegressor(max_iter=1000, tol=1e-3)
                     ))

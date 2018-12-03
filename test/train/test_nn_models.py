@@ -12,4 +12,4 @@ def test_ridge(data):
         MLPRegressor(hidden_layer_sizes=(50, 15,))
     )
 
-    ttr.check_model(data, 'MLPRegressor', estimator)
+    ttr.check_model(data, "MLPRegressor", estimator)

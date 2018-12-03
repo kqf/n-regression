@@ -7,10 +7,10 @@ from sklearn.svm import SVR
 def main():
     rf = make_pipeline(
         StandardScaler(),
-        SVR(kernel='rbf', C=25),
+        SVR(kernel="rbf", C=25),
     )
-    ttr.check_model('SVR', rf)
+    ttr.check_model("SVR", rf)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

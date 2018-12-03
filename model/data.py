@@ -13,30 +13,30 @@ def tofloat(df):
 class DataHandler():
 
     @classmethod
-    def _load_files(klass, ifile='data/inputs.csv', tfile='data/targets.csv'):
+    def _load_files(klass, ifile="data/inputs.csv", tfile="data/targets.csv"):
         return pd.read_csv(ifile), pd.read_csv(tfile)
 
     @classmethod
     def _time_data(klass, data, target):
-        data['timeStamp'] = data['timeStamp'].apply(pd.to_datetime)
-        data['month'] = data['timeStamp'].apply(lambda x: x.month)
-        data['hour'] = data['timeStamp'].apply(lambda x: x.hour)
+        data["timeStamp"] = data["timeStamp"].apply(pd.to_datetime)
+        data["month"] = data["timeStamp"].apply(lambda x: x.month)
+        data["hour"] = data["timeStamp"].apply(lambda x: x.hour)
         # TODO: add woringdays and holidays?
-        data['target'] = target
+        data["target"] = target
         return data
 
     @classmethod
-    def load(klass, ifile='data/inputs.csv',
-             tfile='data/targets.csv'):
+    def load(klass, ifile="data/inputs.csv",
+             tfile="data/targets.csv"):
         data, target = klass._load_files(ifile, tfile)
         assert not data.isnull().values.any(), \
-            'Your data has null entries, clean it'
+            "Your data has null entries, clean it"
         data = klass._time_data(data, target)
         return data
 
     @classmethod
-    def load_train_test(klass, ifile='data/inputs.csv',
-                        tfile='data/targets.csv', fraction=0.25):
+    def load_train_test(klass, ifile="data/inputs.csv",
+                        tfile="data/targets.csv", fraction=0.25):
         data = klass.load(ifile, tfile)
         fdata = tofloat(data)
         testsize = int(fdata.shape[0] * fraction)
@@ -44,12 +44,12 @@ class DataHandler():
         test = fdata.iloc[-testsize:, :]
 
         assert train.timeStamp.max() < test.timeStamp.min(), \
-            'Problems with your data,' \
-            'make sure that you are trying to predict future'
+            "Problems with your data," \
+            "make sure that you are trying to predict future"
 
         return (
-            train.drop(['target'], axis=1),
-            test.drop(['target'], axis=1),
+            train.drop(["target"], axis=1),
+            test.drop(["target"], axis=1),
             train.target.values,
             test.target.values,
         )

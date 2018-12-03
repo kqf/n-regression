@@ -14,13 +14,13 @@ from model.training import ColumnRemover
 def test_search_random_forest(data):
 
     grid_params = {
-        'randomforestregressor__n_estimators': [20, 50, 100, 150, 200],
-        'randomforestregressor__criterion': ['mse'],
-        'randomforestregressor__min_samples_leaf': [2, 4, 8, 16, 32],
+        "randomforestregressor__n_estimators": [20, 50, 100, 150, 200],
+        "randomforestregressor__criterion": ["mse"],
+        "randomforestregressor__min_samples_leaf": [2, 4, 8, 16, 32],
     }
     model = make_pipeline(
-        ColumnRemover(('timeStamp',)),
+        ColumnRemover(("timeStamp",)),
         RandomForestRegressor(),
     )
 
-    ttr.search(data, 'Random Forest', model, grid_params)
+    ttr.search(data, "Random Forest", model, grid_params)

@@ -28,43 +28,43 @@ class Trainer():
     def check_model(klass, data, name, regressor):
         X_tr, X_te, y_tr, y_te = data
 
-        model = make_pipeline(ColumnRemover(('timeStamp',)), regressor)
+        model = make_pipeline(ColumnRemover(("timeStamp",)), regressor)
         model.fit(X_tr, y_tr)
         y_te_pred = model.predict(X_te)
         y_tr_pred = model.predict(X_tr)
         print()
-        print('============== {0} ================='.format(name))
-        print('On train set MAE {0}'.format(
+        print("============== {0} =================".format(name))
+        print("On train set MAE {0}".format(
             mean_absolute_error(y_tr_pred, y_tr)))
-        print('On train set MSE {0}'.format(
+        print("On train set MSE {0}".format(
             mean_squared_error(y_tr_pred, y_tr)))
-        print('On test set MAE {0}'.format(
+        print("On test set MAE {0}".format(
             mean_absolute_error(y_te_pred, y_te)))
-        print('On test set MSE {0}'.format(
+        print("On test set MSE {0}".format(
             mean_squared_error(y_te_pred, y_te)))
-        print('======================================')
+        print("======================================")
 
         plt.figure()
         plt.grid(True)
         plt.scatter(y_tr, y_tr_pred, alpha=0.5,
-                    color='red', label='training data')
+                    color="red", label="training data")
         plt.scatter(y_te, y_te_pred, alpha=0.5,
-                    color='blue', label='test data')
+                    color="blue", label="test data")
         plt.legend()
-        plt.title('Input/Output correlation for {0}'.format(name))
-        plt.axes().set_aspect('equal', 'datalim')
-        plt.xlabel('true values')
-        plt.ylabel('predicted values')
+        plt.title("Input/Output correlation for {0}".format(name))
+        plt.axes().set_aspect("equal", "datalim")
+        plt.xlabel("true values")
+        plt.ylabel("predicted values")
         plt.show()
 
         plt.figure(figsize=(24, 6))
         plt.grid(True)
-        axis = plt.plot(X_tr['timeStamp'], y_tr, color="blue", label="data")
-        plt.plot(X_te['timeStamp'], y_te, color="blue")
-        plt.plot(X_te['timeStamp'], y_te_pred, color="orange", label="test")
-        plt.plot(X_tr['timeStamp'], y_tr_pred, color="green", label="train")
+        axis = plt.plot(X_tr["timeStamp"], y_tr, color="blue", label="data")
+        plt.plot(X_te["timeStamp"], y_te, color="blue")
+        plt.plot(X_te["timeStamp"], y_te_pred, color="orange", label="test")
+        plt.plot(X_tr["timeStamp"], y_tr_pred, color="green", label="train")
         axis = plt.gca()
-        axis.xaxis.set_major_formatter(md.DateFormatter('%Y-%m-%d'))
+        axis.xaxis.set_major_formatter(md.DateFormatter("%Y-%m-%d"))
         plt.xticks(rotation=30)
         plt.legend()
 
@@ -73,15 +73,15 @@ class Trainer():
 
     @classmethod
     def search(klass, data, name, model, parameters):
-        print('Tuning the parameters.\nAll available:')
+        print("Tuning the parameters.\nAll available:")
         for k in model.get_params().keys():
             print(k)
         X_tr, X_te, y_tr, y_te = data
         grid = GridSearchCV(model, parameters, cv=3,
                             verbose=1, n_jobs=-1)
         grid.fit(X_tr, y_tr)
-        print('Best parameters', grid.best_params_)
-        print('Best estimator Train RMS',
+        print("Best parameters", grid.best_params_)
+        print("Best estimator Train RMS",
               mean_absolute_error(grid.best_estimator_.predict(X_tr), y_tr))
-        print('Best estimator Test  RMS',
+        print("Best estimator Test  RMS",
               mean_absolute_error(grid.best_estimator_.predict(X_te), y_te))
